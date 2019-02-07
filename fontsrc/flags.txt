@@ -1,0 +1,17 @@
+sflags
+1: extension set, replaces some but not all characters
+2: don't change unicode codepoints
+4: don't change character flags
+8: double byte character set (dbcs specification not determined)
+100: tie to lowercase a-f setting
+
+cflags
+1: is control character (use color variant 1 or 3)
+2: has different symantic meaning from base set (use color variant 2 or 3)
+4: is undefined character (in base set) (use color variant 4)
+10: use this character (if not set, leave glyph, codepoint, and flags unchanged in cascade)
+yy00: perform smoothing as if character (current + yy mod 256) is to the right
+xx0000: perform smoothing as if character (current + xx mod 256) is to the left
+1000000: override default edge handling in smoothing (if not set, xx and yy are mirrored same character regardless of relevant flags)
+2000000: mirror right adjacent character for smoothing
+4000000: mirror left adjacent character for smoothing
