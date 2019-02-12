@@ -17,13 +17,9 @@ import zlib
 import sdl2, sdl2.ext
 
 import scrbuf
+from version import aboutstring
 
 
-aboutstring = {'title': u'Geeda\'s Simple Hex Editor',
-               'version': u'1.a.1909',
-               'copyright': u'\xa92018 Maggie\u202fDavid P.\u202fK. Haynes',
-               'crhilite': u'gie da',
-               'license': u'all rights reserved (for now\u2026)'}
 fallbacks = {u'\xa0':   (u' ',),
              u'\xa9':   (u'(c)',),
              u'\u2009': (u' ',),
