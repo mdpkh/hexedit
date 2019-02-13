@@ -22,7 +22,19 @@ The main G-SHE program file.
 
 Temoro, a Smoothed Raster Cell Font reminiscent of IBM's EGA-mode font in 10&#215;24-pixel character cells. Supports ASCII, CP-437, and Windows-1252 character sets, plus optional non-lining figures, and optional control pictures or backslash-escape symbols for C0 control characters.
 
+### temosa.srcf
+
+Temosa, a sans-serif version of the Temoro font.
+
+### version.py
+
+This module stores the version and copyright strings for G-SHE. Run `version.py update` to automatically increment the version number and update copyright year before a commit.
+
 ### fontsrc
+
+#### fontsrc/flags.txt
+
+Minimal documentation for the `sflags` and `cflags` lines in `*.srcfdef.txt` files to be read by `packfont.py`.
 
 #### fontsrc/packfont.py
 
@@ -30,4 +42,4 @@ A utility for compiling SRCF files.
 
 #### fontsrc/srcfinfo.py
 
-A crude tool for displaying metadata in SRCF files.
+A crude tool for displaying metadata in SRCF files. Will probably be moved to project root in the future to support GUI font selection in `hexedit.py`.
