@@ -8,6 +8,12 @@ Primary author is Maggie&#8239;David P.&#8239;K. Haynes, a.k.a. Geeda. This proj
 
 As of version 1.a.1909 there's not really much to do besides watch text appear on the screen and lines rebalance as more text appears at the end. Attempting to close the graphical window will introduce a quit confirmation dialog with basic keyboard navigation.
 
+## Dependencies
+
+### SDL2
+
+G-SHE uses the `sdl2` and `sdl2.ext` modules from [PySDL2](https://pysdl2.readthedocs.io/en/rel_0_9_4/install.html).
+
 ## Files
 
 ### hexedit.py
