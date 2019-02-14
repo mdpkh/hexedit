@@ -33,33 +33,38 @@ fallbacks = {u'\xa0':   (u' ',),
              u'\u25c4': (u'\u2190',u'<'),
              }
 namedencodings = {}
-cellcolors = {0x00: (0, ( 7,  6,  3,  2, 8)),
-              0x10: (0, (15, 14, 11, 10, 7)),
-              0x20: (0, ( 8,  8,  8,  8, 8)),
-              0x01: (1, ( 7,  6,  3,  2, 9)),
-              0x11: (1, (15, 14, 11, 10, 9)),
-              0x21: (1, ( 9,  9,  9,  9, 9)),
-              0x03: (3, ( 0,  6,  1,  5, 8)),
-              0x23: (3, ( 8,  8,  8,  8, 8)),
-              0x07: (7, ( 0,  6,  1,  5, 8)),
-              0x27: (7, ( 8,  8,  8,  8, 8)),
+cellcolors = {0x00: (0, ( 7,  6,  3,  2,  8)),
+              0x10: (0, (15, 14, 11, 10,  7)),
+              0x20: (0, ( 8,  8,  8,  8,  8)),
+              0x01: (1, ( 7,  6,  3,  2,  9)),
+              0x11: (1, (15, 14, 11, 10,  9)),
+              0x21: (1, ( 9,  9,  9,  9,  9)),
+              0x03: (3, ( 0,  6,  1,  5,  8)),
+              0x23: (3, ( 8,  8,  8,  8,  8)),
+              0x04: (4, ( 7,  2,  9,  3, 12)),
+              0x14: (4, (15, 10,  9, 11,  7)),
+              0x24: (4, (12, 12, 12, 12, 12)),
+              0x06: (6, ( 0,  1,  4,  1,  8)),
+              0x26: (6, ( 8,  8,  8,  8,  8)),
+              0x07: (7, ( 0,  6,  1,  5,  8)),
+              0x27: (7, ( 8,  8,  8,  8,  8)),
               }
-attalias = [ 0,  1,  3,  3,  1,  1,  1,  7, 32, 33,  3,  3, 17, 17, 17, 16,
-            16, 17,  3,  3, 17, 17, 17,  7, 16, 17,  3,  3, 17, 17, 17,  7,
-            32, 33, 35, 35, 33, 33, 33, 39, 32, 33, 35, 35, 33, 33, 33, 39,
-            32, 33, 35, 35, 33, 33, 33, 39, 32, 33, 35, 35, 33, 33, 33, 39,
-             0,  1,  3,  3,  1,  1,  1,  7, 16, 17,  3,  3, 17, 17, 17,  7,
-            16, 17,  3,  3, 17, 17, 17,  7, 16, 17,  3,  3, 17, 17, 17,  7,
-            32, 33, 35, 35, 33, 33, 33, 39, 32, 33, 35, 35, 33, 33, 33, 39,
-            32, 33, 35, 35, 33, 33, 33, 39, 32, 33, 35, 35, 33, 33, 33, 39,
-             0,  1,  3,  3,  1,  1,  1,  7, 16, 17,  3,  3, 17, 17, 17,  7,
-            16, 17,  3,  3, 17, 17, 17,  7, 16, 17,  3,  3, 17, 17, 17,  7,
-            32, 33, 35, 35, 33, 33, 33, 39, 32, 33, 35, 35, 33, 33, 33, 39,
-            32, 33, 35, 35, 33, 33, 33, 39, 32, 33, 35, 35, 33, 33, 33, 39,
-             0,  1,  3,  3,  1,  1,  1,  7, 16, 17,  3,  3, 17, 17, 17,  7,
-            16, 17,  3,  3, 17, 17, 17,  7, 16, 17,  3,  3, 17, 17, 17,  7,
-            32, 33, 35, 35, 33, 33, 33, 39, 32, 33, 35, 35, 33, 33, 33, 39,
-            32, 33, 35, 35, 33, 33, 33, 39, 32, 33, 35, 35, 33, 33, 33, 39]
+attalias = [ 0,  1,  3,  3,  4,  4,  6,  7, 32, 33,  3,  3, 20, 20,  6, 16,
+            16, 17,  3,  3, 20, 20,  6,  7, 16, 17,  3,  3, 20, 20,  6,  7,
+            32, 33, 35, 35, 36, 36, 38, 39, 32, 33, 35, 35, 36, 36, 38, 39,
+            32, 33, 35, 35, 36, 36, 38, 39, 32, 33, 35, 35, 36, 36, 38, 39,
+             0,  1,  3,  3,  4,  4,  6,  7, 16, 17,  3,  3, 20, 20,  6,  7,
+            16, 17,  3,  3, 20, 20,  6,  7, 16, 17,  3,  3, 20, 20,  6,  7,
+            32, 33, 35, 35, 36, 36, 38, 39, 32, 33, 35, 35, 36, 36, 38, 39,
+            32, 33, 35, 35, 36, 36, 38, 39, 32, 33, 35, 35, 36, 36, 38, 39,
+             0,  1,  3,  3,  4,  4,  6,  7, 16, 17,  3,  3, 20, 20,  6,  7,
+            16, 17,  3,  3, 20, 20,  6,  7, 16, 17,  3,  3, 20, 20,  6,  7,
+            32, 33, 35, 35, 36, 36, 38, 39, 32, 33, 35, 35, 36, 36, 38, 39,
+            32, 33, 35, 35, 36, 36, 38, 39, 32, 33, 35, 35, 36, 36, 38, 39,
+             0,  1,  3,  3,  4,  4,  6,  7, 16, 17,  3,  3, 20, 20,  6,  7,
+            16, 17,  3,  3, 20, 20,  6,  7, 16, 17,  3,  3, 20, 20,  6,  7,
+            32, 33, 35, 35, 36, 36, 38, 39, 32, 33, 35, 35, 36, 36, 38, 39,
+            32, 33, 35, 35, 36, 36, 38, 39, 32, 33, 35, 35, 36, 36, 38, 39]
 ibmcolors = [0x00, 0x02, 0x08, 0x0a,
              0x20, 0x22, 0x24, 0x2a,
              0x15, 0x17, 0x1d, 0x1f,
@@ -637,6 +642,7 @@ def main():
     global loadedfontpack
     global prefs
     global screen
+    global window
     consoleenc = sys.stdout.encoding
     print altencode(aboutstring['title'], consoleenc)
     print altencode(aboutstring['version'], consoleenc)
@@ -651,7 +657,7 @@ def main():
     window = sdl2.ext.Window(aboutstring['title'], size=(800, 600))
     charcells = [None] * 256
     basicfont, basicfontdata = scrbuf.defaultfont(0xaaaaaa, 0x0, 10, 24)
-    for a in (0x0, 0x10, 0x20):
+    for a in cellcolors:
         charcells[a] = basicfont
     winsurf = window.get_surface()
     screen = scrbuf.ScrBuf(winsurf,
@@ -666,18 +672,21 @@ def main():
                                for h in screen.encoding.split(' ')]
         except ValueError:
             pass
-    screen.cbuf[:,:] = 0x20
-    screen.abuf[:,:] = 0x20
+    screen.cbuf[ : , : ] = (' *  ' * 20 + '   *' * 20) * 13
+    screen.abuf[ : , : ] = 0x21
+    boxcolor = int(time.time()) & 7
+    screen.abuf[20 : 60, 7 : 13] = 0x20 | boxcolor
+    screen.cbuf[20 : 60, 7 : 13] = 0x20
     screen.refresh()
     s = altencode(aboutstring['title'], screen.encoding)
     x = (80 - len(s)) // 2
     screen.cursorTo((x, 8))
-    screen.setColor(0x10)
+    screen.setColor(0x10 | boxcolor)
     screen.printText(s)
     s = altencode(aboutstring['version'], screen.encoding)
     x = (80 - len(s)) // 2
     screen.cursorTo((x, 9))
-    screen.setColor(0x00)
+    screen.setColor(0x00 | boxcolor)
     screen.printText(s)
     s = altencode(aboutstring['copyright'], screen.encoding)
     x = (80 - len(s)) // 2
@@ -687,11 +696,11 @@ def main():
     hidx = s.lower().find(ss)
     if hidx >= 0:
         screen.abuf[x + hidx : x + hidx + len(ss),
-                    screen.crow] = 0x10
+                    screen.crow] = 0x10 | boxcolor
     s = altencode(aboutstring['license'], screen.encoding)
     x = (80 - len(s)) // 2
     screen.cursorTo((x, 11))
-    screen.setColor(0x20)
+    screen.setColor(0x20 | boxcolor)
     screen.printText(s)
     screen.cursorTo((0, 0))
     screen.setColor(0x10)
@@ -706,26 +715,8 @@ def main():
         if time.clock() - lastrefresh > 1.0:
             screen.refresh()
             lastrefresh = time.clock()
-    print 'Testing wrap function...'
-    window.title = 'Word-wrap demo'
-    teststring = u'Here is a very long run of text, with some short words, ' +\
-                 u'and some very long words like extraordinary, ' +\
-                 u'Mississippi, and canteloupe. Let\'s also throw in some ' +\
-                 u'hyphenated words, like lactose-intolerant, Put-In-Bay, ' +\
-                 u'merry-go-round, state-of-the-art, and ground-breaking. ' +\
-                 u'This run of text is also a bit repetitive. '
-    teststring *= 3
-    print 'Starting event loop...'
-    i = 1
-    screen.abuf[ : , : ] = 3
-    screen.abuf[12 : 68, 5 : 20] = 1
-    screen.refresh()
-    for event in eventloop(tinterval=0.33):
-        if event.type == sdl2.SDL_KEYDOWN or event.type == SDLX_TIMERTICK:
-            wraptext(teststring[: i], (12, 68), (5, 20), ALIGN_CENTER)
-            i += 1
-        if i > len(teststring):
-            break
+    print 'Starting application loop...'
+    scnWrapdemo()
     for event in eventloop(quitconfirm=scnQuitconfirm):
         pass
     print 'Quitting SDL...'
@@ -740,7 +731,7 @@ def main():
 
 def scnQuitconfirm(*args):
     restoreinfo = drawdlg((21, 59), (10, 15))
-    wraptext('Exit word-wrap demo?',
+    wraptext('Exit G-SHE?',
              (22, 58), (11, 13), ALIGN_CENTER)
     f = Form([Control((27, 37), 13, CTRL_BUTTON,
                       caption=u'Yes', hotkey = sdl2.SDLK_y, action=URESP_YES),
@@ -768,6 +759,36 @@ def scnQuitconfirm(*args):
                     if c.action is URESP_NO:
                         undrawdlg(restoreinfo)
                     return c.action
+
+
+def scnWrapdemo(*args):
+    restoretitle = window.title
+    restoreabuf = screen.abuf[ : , : ]
+    restorecbuf = screen.cbuf[ : , : ]
+    window.title = 'Word-wrap demo'
+    teststring = u'Here is a very long run of text, with some short words, ' +\
+                 u'and some very long words like extraordinary, ' +\
+                 u'Mississippi, and canteloupe. Let\'s also throw in some ' +\
+                 u'hyphenated words, like lactose-intolerant, Put-In-Bay, ' +\
+                 u'merry-go-round, state-of-the-art, and ground-breaking. ' +\
+                 u'This run of words is also a bit repetitive. '
+    teststring *= 3
+    i = 1
+    screen.abuf[ 9 : 75, 4 : 23] = 32
+    screen.abuf[ 7 : 73, 3 : 22] = 3
+    screen.abuf[12 : 68, 5 : 20] = 1
+    screen.cbuf[ 7 : 73, 3 : 22] = 32
+    screen.refresh()
+    for event in eventloop(tinterval=0.33):
+        if event.type == sdl2.SDL_KEYDOWN or event.type == SDLX_TIMERTICK:
+            wraptext(teststring[: i], (12, 68), (5, 20), ALIGN_CENTER)
+            i += 1
+        if i > len(teststring):
+            break
+    window.title = restoretitle
+    screen.abuf[ : , : ] = restoreabuf
+    screen.cbuf[ : , : ] = restorecbuf
+    screen.refresh()
 
 
 def srcfnamefromfile(f):
