@@ -16,8 +16,11 @@ if __name__ != '__main__':
         'license': u'all rights reserved (for now\u2026)'}
 else:
     import sys
-    if len(sys.argv) <= 1 or sys.argv[1] != 'update':
-        print 'Import this module or run it with argument \'update\'.'
+    if len(sys.argv) <= 1 or sys.argv[1] not in ('tell', 'update'):
+        print 'Import this module or run it with argument \'tell\' or \'update\'.'
+        sys.exit(0)
+    if sys.argv[1] == 'tell':
+        print '{:s}.{:s}.{:s}'.format(major, minor, build)
         sys.exit(0)
     import datetime
     now = datetime.datetime.utcnow()
