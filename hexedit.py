@@ -463,7 +463,7 @@ def keypressfilter(events):
                                     modstate,
                                     keycombo)
             if e.key.keysym.sym in SDLX_MOD_KEYS:
-                modstate &= e.key.keysym.sym ^ -1
+                modstate &= ~e.key.keysym.sym
             else:
                 keycombo.discard(e.key.keysym.sym)
 
