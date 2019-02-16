@@ -2,7 +2,7 @@ major = '1'
 minor = 'a'
 #the following two lines are updated programmatically
 #to update, run this file with 'update' as its command line argument
-build = '1911.1'
+build = '1912'
 cryear = '19'
 
 if __name__ != '__main__':

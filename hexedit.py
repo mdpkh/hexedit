@@ -622,7 +622,7 @@ def loadprefs(infilename=None):
             for d in f:
                 if d.startswith('#'):
                     continue
-                k, s, v = d.partition('=')
+                k, s, v = d.rstrip('\n\r').partition('=')
                 if len(s) == 0:
                     continue
                 prefs[k] = v
