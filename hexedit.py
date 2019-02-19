@@ -85,15 +85,19 @@ colormix = (((  0,   0,   0,   0,   0,   0,   0,   0,   0,   0),
              (255, 243, 231, 217, 203, 187, 168, 147, 121,  85),
              (255, 247, 239, 231, 223, 213, 204, 193, 182, 170),
              (255, 255, 255, 255, 255, 255, 255, 255, 255, 255)))
+ACTION_NO = 'User Response: No'
+ACTION_NOQUIT = 'User Response: No (Don\'t Quit)'
+ACTION_YES = 'User Response: Yes'
+ACTION_YESQUIT = 'User Response: Yes (Quit)'
 ALIGN_CENTER = 'Align Center'
 ALIGN_LEFT = 'Align Left'
 ALIGN_RIGHT = 'Align Right'
 CTRL_BUTTON = 'Button Control'
+CTRL_HOTKEY = 'Hidden Control activated by hotkey'
 CTRL_LABEL = 'Control Label'
+CTRL_WINCLOSE = 'Hidden Control activated by window close request'
 LDIR_LEFT = 'Label Direction Left'
 LDIR_RIGHT = 'Label Direction Right'
-URESP_NO = 'User Response: No'
-URESP_YES = 'User Response: Yes'
 SDLX_KEYPRESS = sdl2.SDL_USEREVENT | sdl2.SDL_KEYUP | 0xF0
 SDLX_MOD_KEYS = (sdl2.SDLK_LCTRL,
                  sdl2.SDLK_LSHIFT,
@@ -134,7 +138,9 @@ class Control(object):
             self.spanr = slice(*self.spanr)
         elif isinstance(self.spanr, int):
             self.spanr = slice(self.spanr, self.spanr + 1)
-        self.skipfocus = self.type in (CTRL_LABEL,
+        self.skipfocus = self.type in (CTRL_HOTKEY,
+                                       CTRL_LABEL,
+                                       CTRL_WINCLOSE,
                                        )
         self.focus = False
         self.label = None
@@ -163,6 +169,8 @@ class Control(object):
 
     def drawFull(self, refreshscreen=False):
         #caption = altencode(self.caption, screen.encoding)
+        if self.spanr is None or self.spanc is None:
+            return
         if self.type is CTRL_BUTTON:
             self.lpadf = altencode(u'\u25ba'
                                    if self.labeldir is not LDIR_RIGHT
@@ -262,6 +270,12 @@ class Form(object):
                 return c
         return None
 
+    def ctrlByWinClose(self):
+        for c in self.controls:
+            if c.type == CTRL_WINCLOSE:
+                return c
+        return None
+
     def ctrlIdxAt(self, pos):
         newtabidx = 0
         tc, tr = pos
@@ -276,6 +290,14 @@ class Form(object):
         newtabidx = 0
         for c in self.controls:
             if c.hotkey == hotkey:
+                return newtabidx
+            newtabidx += 1
+        return None
+
+    def ctrlIdxByWinClose(self):
+        newtabidx = 0
+        for c in self.controls:
+            if c.type == CTRL_WINCLOSE:
                 return newtabidx
             newtabidx += 1
         return None
@@ -380,6 +402,34 @@ def countback(start=0x7fffffff):
         yield x
         x -= 1
 
+
+def dlgloop(f, **kwargs):
+    for event in keypressfilter(eventloop(**kwargs)):
+        if event.type == sdl2.SDL_QUIT:
+            c = f.ctrlByWinClose()
+            if c is None:
+                continue
+            yield c.action
+        if event.type == SDLX_KEYPRESS:
+            if sdl2.SDLK_TAB in event.keycombo:
+                if event.modkeys & (sdl2.KMOD_LSHIFT | sdl2.KMOD_RSHIFT):
+                    f.focusPrev()
+                else:
+                    f.focusNext()
+                event.keycombo.discard(sdl2.SDLK_TAB)
+            if sdl2.SDLK_RETURN in event.keycombo \
+                 or sdl2.SDLK_SPACE in event.keycombo:
+                c = f.focusedControl()
+                yield c.action
+                event.keycombo.discard(sdl2.SDLK_RETURN)
+                event.keycombo.discard(sdl2.SDLK_SPACE)
+            for k in event.keycombo:
+                c = f.ctrlByHotkey(k)
+                if c is None:
+                    continue
+                yield c.action
+
+
 def drawdlg(spanc, spanr):
     if isinstance(spanc, int):
         x0 = spanc
@@ -420,17 +470,6 @@ def eventloop(**kwargs):
                 if event.window.event == sdl2.SDL_WINDOWEVENT_EXPOSED:
                     screen.refresh(((0, 0), (0, 0)))
                     continue
-            elif event.type == sdl2.SDL_QUIT:
-                if 'quitconfirm' in kwargs:
-                    if isinstance(kwargs['quitconfirm'], tuple):
-                        uresponse = kwargs['quitconfirm'][0](
-                            **(kwargs['quitconfirm'][1:]))
-                    else:
-                        uresponse = kwargs['quitconfirm'](event)
-                    if uresponse is URESP_NO:
-                        continue
-                yield event
-                return
             yield event
         time.sleep(0.001)
         t = time.clock()
@@ -717,8 +756,10 @@ def main():
             lastrefresh = time.clock()
     print 'Starting application loop...'
     scnWrapdemo()
-    for event in eventloop(quitconfirm=scnQuitconfirm):
-        pass
+    for event in eventloop():
+        if event.type == sdl2.SDL_QUIT:
+            if scnQuitconfirm() is ACTION_YESQUIT:
+                break
     print 'Quitting SDL...'
     window.hide()
     del window
@@ -734,31 +775,19 @@ def scnQuitconfirm(*args):
     wraptext('Exit G-SHE?',
              (22, 58), (11, 13), ALIGN_CENTER)
     f = Form([Control((27, 37), 13, CTRL_BUTTON,
-                      caption=u'Yes', hotkey = sdl2.SDLK_y, action=URESP_YES),
+                      caption=u'Yes', hotkey=sdl2.SDLK_y, action=ACTION_YESQUIT),
               Control((43, 53), 13, CTRL_BUTTON,
-                      caption=u'No', hotkey = sdl2.SDLK_n, action=URESP_NO),
+                      caption=u'No', hotkey=sdl2.SDLK_n, action=ACTION_NOQUIT),
+              Control(None, None, CTRL_WINCLOSE, action=ACTION_YESQUIT),
               ])
     screen.refresh(restoreinfo[0])
-    for event in keypressfilter(eventloop(
-                quitconfirm=(lambda x: URESP_YES))):
-        if event.type == SDLX_KEYPRESS:
-            if sdl2.SDLK_y in event.keycombo:
-                return URESP_YES
-            if sdl2.SDLK_n in event.keycombo:
-                undrawdlg(restoreinfo)
-                return URESP_NO
-            if sdl2.SDLK_TAB in event.keycombo:
-                if event.modkeys & (sdl2.KMOD_LSHIFT | sdl2.KMOD_RSHIFT):
-                    f.focusPrev()
-                else:
-                    f.focusNext()
-            elif sdl2.SDLK_RETURN in event.keycombo \
-                 or sdl2.SDLK_SPACE in event.keycombo:
-                c = f.focusedControl()
-                if c.type is CTRL_BUTTON:
-                    if c.action is URESP_NO:
-                        undrawdlg(restoreinfo)
-                    return c.action
+    for action in dlgloop(f):
+        if action not in (ACTION_YESQUIT, ACTION_NOQUIT):
+            continue
+        undrawdlg(restoreinfo)
+        return action
+    undrawdlg(restoreinfo)
+    return None
 
 
 def scnWrapdemo(*args):
@@ -780,9 +809,15 @@ def scnWrapdemo(*args):
     screen.cbuf[ 7 : 73, 3 : 22] = 32
     screen.refresh()
     for event in eventloop(tinterval=0.33):
-        if event.type == sdl2.SDL_KEYDOWN or event.type == SDLX_TIMERTICK:
+        if event.type == SDLX_TIMERTICK:
             wraptext(teststring[: i], (12, 68), (5, 20), ALIGN_CENTER)
             i += 1
+            continue
+        if (event.type == sdl2.SDL_KEYDOWN
+                and event.key.keysym.sym == sdl2.SDLK_ESCAPE):
+            break
+        if event.type == sdl2.SDL_QUIT:
+            break
         if i > len(teststring):
             break
     window.title = restoretitle
